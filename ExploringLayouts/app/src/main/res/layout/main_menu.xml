@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:onClick="loadMenuLayout"
+            android:onClick="loadTableLayout"
             android:text="LOAD" />
     </LinearLayout>
 
