@@ -1,7 +1,9 @@
 package com.m1ctopt1.todolist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -28,5 +30,12 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun handleClick(v: View){
+        if(v.id == R.id.buttonAddToDo){
+            val addTask = Intent(this, EditTaskActivity::class.java)
+            startActivity(addTask)
+        }
     }
 }
