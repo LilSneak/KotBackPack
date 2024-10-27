@@ -1,5 +1,6 @@
 package com.m1ctopt1.todolist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -43,6 +44,6 @@ class EditTaskActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-        
+
     }
 }
