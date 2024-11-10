@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun populateListViewTasks(){
         var tasksStrings: ArrayList<String>
-        
+
 
 
     }
