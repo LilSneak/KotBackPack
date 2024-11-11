@@ -1,6 +1,5 @@
 package com.m1ctopt1.mytracker;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-
+//FOR PRACTICE BEFORE SETTING MAP TO ACTUAL PHONE LOCATION
     @Override
     public void onMapReady(@NonNull GoogleMap  googleMap) {
 
