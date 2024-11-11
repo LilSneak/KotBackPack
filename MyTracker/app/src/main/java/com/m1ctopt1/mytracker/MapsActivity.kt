@@ -63,19 +63,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val mapFragment = supportFragmentManager
                     .findFragmentById(R.id.map) as SupportMapFragment
                 mapFragment.getMapAsync(this)
+            }
         }
-    }
 
-    fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+        fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+        ){
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
                 when(requestCode){
                     permissionCode -> if(grantResults.isNotEmpty() && grantResults[0]==
                         PackageManager.PERMISSION_GRANTED){
-                        getCurrentLocationUser()
+                            getCurrentLocationUser()
                     }
                 }
         }
