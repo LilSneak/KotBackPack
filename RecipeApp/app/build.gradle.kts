@@ -1,6 +1,9 @@
+
+
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    //alias(libs.plugins.kotlin.android)
+    id ("org.jetbrains.kotlin.android")
   id("com.google.devtools.ksp")
 
 }
@@ -29,8 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -67,8 +70,7 @@ dependencies {
     //easy permission
         implementation(libs.easypermissions)
     //coroutines core
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
-
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
 
 }
