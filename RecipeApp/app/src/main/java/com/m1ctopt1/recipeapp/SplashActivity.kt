@@ -10,9 +10,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.m1ctopt1.recipeapp.database.RecipeDatabase
 import com.m1ctopt1.recipeapp.entities.Category
 import com.m1ctopt1.recipeapp.interfaces.GetDataService
 import com.m1ctopt1.recipeapp.retrofitclient.RetrofitClientInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,43 +30,54 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyP
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash)
 
+        readStorageTask()
 
-          findViewById<Button>(R.id.btnGetStarted).setOnClickListener{
+        findViewById<Button>(R.id.btnGetStarted).setOnClickListener{
               var intent = Intent(this@SplashActivity, HomeActivity::class.java)
               startActivity(intent)
               finish()
-          }
         }
+    }
 
     fun getCategories() {
-        val service = RetrofitClientInstance.retrofitInstance.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.getCategoryList()
-        call.enqueue(object: Callback<List<Category>>{
-            override fun onFailure(call: Call<List<Category>>, t: Throwable) {
+        call.enqueue(object: Callback<Category> {
+            override fun onFailure(call: Call<Category>, t: Throwable) {
 
                 findViewById<ProgressBar>(R.id.loader).visibility = View.INVISIBLE
 
-                Toast.makeText(this@SplashActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SplashActivity, "Something went wrong", Toast.LENGTH_SHORT)
+                    .show()
             }
 
             override fun onResponse(
-                call: Call<List<Category>>,
-                response: Response<List<Category>>
+                call: Call<Category>,
+                response: Response<Category>
             ) {
                 insertDataIntoRoomDb(response.body())
             }
         })
     }
-    fun insertDataIntoRoomDb(category: List<Category>?){
-
+    fun insertDataIntoRoomDb(category: Category?){
+        launch {
+            this.let {
+                RecipeDatabase.getDatabase(this@SplashActivity).recipeDao().clearDb()
+                for(arr in category!!.categoryitems!!){
+                    RecipeDatabase.getDatabase(this@SplashActivity)
+                        .recipeDao().insertCategory(arr)
+                }
+                findViewById<Button>(R.id.btnGetStarted).visibility = View.VISIBLE
+            }
+        }
     }
 private fun hasReadStoragePermission():Boolean{
     return EasyPermissions.hasPermissions(this,android.Manifest.permission.READ_EXTERNAL_STORAGE)
 }
 
     private fun readStorageTask(){
-        if(hasReadStoragePermission()){
-
+        if(!hasReadStoragePermission()){
+            getCategories()
         }else{
             EasyPermissions.requestPermissions(
                 this,
@@ -72,26 +87,31 @@ private fun hasReadStoragePermission():Boolean{
             )
         }
     }
-    override fun onRequestRermissionResult(
+
+    override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
-    ){
-        super.onRequestPermissionsResult(requestCode,permissions, grantResults)
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions,grantResults,this)
     }
+
     override fun onRationaleAccepted(requestCode: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onRationaleDenied(requestCode: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        TODO("Not yet implemented")
+        if(EasyPermissions.somePermissionPermanentlyDenied(this,perms)){
+            AppSettingsDialog.Builder(this).build().show()
+        }
     }
 }

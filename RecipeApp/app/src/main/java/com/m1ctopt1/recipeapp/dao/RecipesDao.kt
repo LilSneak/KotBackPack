@@ -5,15 +5,19 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.m1ctopt1.recipeapp.entities.Category
+import com.m1ctopt1.recipeapp.entities.CategoryItems
 import com.m1ctopt1.recipeapp.entities.Recipes
 
 @Dao
 interface RecipesDao {
 
-    @get:Query("SELECT * FROM category ORDER BY id DESC")
-    val getAllCategory: List<Category>
+    @Query("SELECT * FROM categoryitems ORDER BY id DESC")
+   suspend fun getAllCategory(): List<CategoryItems>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategory(category: Category)
+    suspend fun insertCategory(categoryItems: CategoryItems?)
+
+    @Query("DELETE FROM categoryitems")
+    suspend fun clearDb()
 
 }
