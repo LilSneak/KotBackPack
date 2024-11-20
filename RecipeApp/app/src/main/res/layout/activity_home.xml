@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:text="Category Name"
+                android:id="@+id/tvCategory"
                 android:textSize="@dimen/_10sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:textColor="@color/black" />
