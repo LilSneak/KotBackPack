@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.m1ctopt1.recipeapp.entities.Category
+import com.m1ctopt1.recipeapp.entities.CategoryItems
 
 class CategoryListConverter {
     @TypeConverter
@@ -19,12 +20,12 @@ class CategoryListConverter {
         }
     }
     @TypeConverter
-    fun toCategoryList(categoryString: String): List<Category>?{
+    fun toCategoryList(categoryString: String): List<CategoryItems>?{
         if(categoryString == null){
             return(null)
         }else{
             val gson = Gson()
-            val type = object: TypeToken<Category>(){
+            val type = object: TypeToken<CategoryItems>(){
 
                 }.type
                 return gson.fromJson(categoryString,type)
