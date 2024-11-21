@@ -1,5 +1,6 @@
 package com.m1ctopt1.recipeapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -35,13 +36,21 @@ class HomeActivity : AppCompatActivity() {
         getDataFromDb()
 
         mainCategoryAdapter.setClickListener(onClicked)
-
+        subCategoryAdapter.setClickListener(onClickedSubItem)
 
     }
 
     private val onClicked = object:MainCategoryAdapter.OnItemClickListen1{
         override fun onClicked(categoryName: String) {
             getMealDataFromDb(categoryName)
+        }
+    }
+    private val onClickedSubItem = object:SubCategoryAdapter.OnItemClickListen1{
+        override fun onClicked(id: Int) {
+            var intent = Intent(this@HomeActivity,DetailActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+
         }
     }
     private fun getDataFromDb(){

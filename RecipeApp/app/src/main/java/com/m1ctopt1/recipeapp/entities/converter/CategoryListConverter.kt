@@ -27,7 +27,7 @@ class CategoryListConverter {
             val gson = Gson()
             val type = object: TypeToken<CategoryItems>(){
 
-                }.type
+            }.type
                 return gson.fromJson(categoryString,type)
         }
     }

@@ -9,5 +9,6 @@
     <color name="blue">#03A9F4</color>
     <color name="light_blue">#75D0F8</color>
     <color name="dark_blue">#3F51B5</color>
+    <color name="light_orange">#C87956</color>
     <color name="red">#F44336</color>
 </resources>
