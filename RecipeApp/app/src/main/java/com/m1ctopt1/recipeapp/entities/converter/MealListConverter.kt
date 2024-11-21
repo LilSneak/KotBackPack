@@ -27,8 +27,8 @@ class MealListConverter {
             val gson = Gson()
             val type = object: TypeToken<MealsItems>(){
 
-                }.type
-                return gson.fromJson(categoryString,type)
+            }.type
+            return gson.fromJson(categoryString,type)
         }
     }
 }

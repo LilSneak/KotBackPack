@@ -8,7 +8,7 @@ import com.m1ctopt1.recipeapp.entities.CategoryItems
 
 class CategoryListConverter {
     @TypeConverter
-    fun fromCategoryList(category: List<Category>):String?{
+    fun fromCategoryList(category: List<CategoryItems>):String?{
         if(category == null){
             return(null)
         }else{
@@ -28,7 +28,7 @@ class CategoryListConverter {
             val type = object: TypeToken<CategoryItems>(){
 
             }.type
-                return gson.fromJson(categoryString,type)
+            return gson.fromJson(categoryString,type)
         }
     }
 }

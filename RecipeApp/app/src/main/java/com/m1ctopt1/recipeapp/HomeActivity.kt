@@ -28,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
     var mainCategoryAdapter = MainCategoryAdapter()
     var subCategoryAdapter = SubCategoryAdapter()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
     private val onClickedSubItem = object:SubCategoryAdapter.OnItemClickListen1{
-        override fun onClicked(id: Int) {
+        override fun onClicked(id: String) {
             var intent = Intent(this@HomeActivity,DetailActivity::class.java)
             intent.putExtra("id", id)
             startActivity(intent)

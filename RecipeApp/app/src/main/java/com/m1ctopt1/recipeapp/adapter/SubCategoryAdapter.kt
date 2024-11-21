@@ -22,7 +22,7 @@ class SubCategoryAdapter:RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHolde
     var arrSubCategory = ArrayList<MealsItems>()
 
     interface OnItemClickListen1 {
-        fun onClicked(id:Int)
+        fun onClicked(id:String)
     }
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -51,7 +51,7 @@ class SubCategoryAdapter:RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHolde
         Glide.with(ctx!!).load(arrSubCategory[position].strMealThumb).into(holder.itemView.findViewById(R.id.img_dish))
 
         holder.itemView.rootView.setOnClickListener{
-            listener!!.onClicked(arrSubCategory[position].id)
+            listener!!.onClicked(arrSubCategory[position].idMeal)
         }
     }
 

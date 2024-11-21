@@ -8,23 +8,21 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+
 import com.m1ctopt1.recipeapp.database.RecipeDatabase
 import com.m1ctopt1.recipeapp.entities.Category
 import com.m1ctopt1.recipeapp.entities.Meal
 import com.m1ctopt1.recipeapp.entities.MealsItems
 import com.m1ctopt1.recipeapp.interfaces.GetDataService
 import com.m1ctopt1.recipeapp.retrofitclient.RetrofitClientInstance
-import kotlinx.coroutines.CoroutineScope
+
 import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
+
 
 class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyPermissions.PermissionCallbacks {
     private var READ_STORAGE_PERM = 123
@@ -42,8 +40,8 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyP
         }
     }
 
-    fun getCategories() {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+    private fun getCategories() {
+        val service = RetrofitClientInstance.retrofitInstance.create(GetDataService::class.java)
         val call = service.getCategoryList()
         call.enqueue(object: Callback<Category> {
             override fun onFailure(call: Call<Category>, t: Throwable) {
@@ -65,7 +63,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyP
     }
 
     fun getMeal(categoryName:String) {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance.create(GetDataService::class.java)
         val call = service.getMealList(categoryName)
         call.enqueue(object: Callback<Meal> {
             override fun onFailure(call: Call<Meal>, t: Throwable) {
@@ -117,7 +115,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyP
         }
     }
 
-    fun clearDatabase(){
+    private fun clearDatabase(){
             launch {
                 this.let { RecipeDatabase.getDatabase(this@SplashActivity).recipeDao().clearDb()
                 }
