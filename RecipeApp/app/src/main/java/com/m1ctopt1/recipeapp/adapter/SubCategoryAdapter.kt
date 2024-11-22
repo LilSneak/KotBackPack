@@ -4,26 +4,26 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
+
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.m1ctopt1.recipeapp.R
-import com.m1ctopt1.recipeapp.adapter.MainCategoryAdapter.OnItemClickListen1
+
 import com.m1ctopt1.recipeapp.entities.MealsItems
 import com.m1ctopt1.recipeapp.entities.Recipes
 
 
 class SubCategoryAdapter:RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHolder>() {
 
-    var listener: SubCategoryAdapter.OnItemClickListen1? = null
+    var listener: OnItemClickListener? = null
+    interface OnItemClickListener {
+        fun onClicked(id:String)
+    }
 
     var ctx: Context? = null
     var arrSubCategory = ArrayList<MealsItems>()
 
-    interface OnItemClickListen1 {
-        fun onClicked(id:String)
-    }
 
     class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -42,7 +42,7 @@ class SubCategoryAdapter:RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHolde
     override fun getItemCount(): Int {
         return arrSubCategory.size
     }
-    fun setClickListener(listener1: SubCategoryAdapter.OnItemClickListen1){
+    fun setClickListener(listener1: SubCategoryAdapter.OnItemClickListener){
         listener = listener1
     }
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int){

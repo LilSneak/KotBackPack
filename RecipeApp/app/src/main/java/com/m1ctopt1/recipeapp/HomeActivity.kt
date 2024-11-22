@@ -21,7 +21,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
     var arrmainCategory = ArrayList<CategoryItems>()
     var arrSubCategory = ArrayList<MealsItems>()
 
@@ -41,12 +41,12 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private val onClicked = object:MainCategoryAdapter.OnItemClickListen1{
+    private val onClicked = object:MainCategoryAdapter.OnItemClickListener{
         override fun onClicked(categoryName: String) {
             getMealDataFromDb(categoryName)
         }
     }
-    private val onClickedSubItem = object:SubCategoryAdapter.OnItemClickListen1{
+    private val onClickedSubItem = object:SubCategoryAdapter.OnItemClickListener{
         override fun onClicked(id: String) {
             var intent = Intent(this@HomeActivity,DetailActivity::class.java)
             intent.putExtra("id", id)
@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
     private fun getDataFromDb(){
-      GlobalScope.launch {
+      launch {
           this.let {
               var cat = RecipeDatabase.getDatabase(this@HomeActivity).recipeDao().getAllCategory()
               arrmainCategory = cat as ArrayList<CategoryItems>
@@ -70,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun getMealDataFromDb(categoryName:String){
         findViewById<TextView>(R.id.tvCategory).text = "$categoryName category"
-        GlobalScope.launch {
+        launch {
             this.let {
                 var cat = RecipeDatabase.getDatabase(this@HomeActivity).recipeDao().getSpecificMealList(categoryName)
                 arrSubCategory = cat as ArrayList<MealsItems>

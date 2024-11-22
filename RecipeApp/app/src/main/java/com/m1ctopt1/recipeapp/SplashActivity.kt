@@ -33,7 +33,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyP
 
         readStorageTask()
 
-        findViewById<Button>(R.id.btnGetStarted).setOnClickListener{
+        findViewById<Button>(R.id.btnGetStarted).setOnClickListener(){
               var intent = Intent(this@SplashActivity, HomeActivity::class.java)
               startActivity(intent)
               finish()
@@ -41,7 +41,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyP
     }
 
     private fun getCategories() {
-        val service = RetrofitClientInstance.retrofitInstance.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.getCategoryList()
         call.enqueue(object: Callback<Category> {
             override fun onFailure(call: Call<Category>, t: Throwable) {
@@ -63,7 +63,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.RationaleCallbacks, EasyP
     }
 
     fun getMeal(categoryName:String) {
-        val service = RetrofitClientInstance.retrofitInstance.create(GetDataService::class.java)
+        val service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
         val call = service.getMealList(categoryName)
         call.enqueue(object: Callback<Meal> {
             override fun onFailure(call: Call<Meal>, t: Throwable) {

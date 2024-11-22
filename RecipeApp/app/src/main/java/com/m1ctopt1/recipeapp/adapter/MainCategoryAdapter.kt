@@ -15,9 +15,9 @@ import com.m1ctopt1.recipeapp.entities.Recipes
 
 
 class MainCategoryAdapter:RecyclerView.Adapter<MainCategoryAdapter.RecipeViewHolder>() {
-    var listener: OnItemClickListen1? = null
+    var listener: OnItemClickListener? = null
 
-    interface OnItemClickListen1 {
+    interface OnItemClickListener {
         fun onClicked(categoryName:String)
     }
 
@@ -30,7 +30,7 @@ class MainCategoryAdapter:RecyclerView.Adapter<MainCategoryAdapter.RecipeViewHol
     fun setdata(arrData: List<CategoryItems>){
         arrMainCategory = arrData as ArrayList<CategoryItems>
     }
-    fun setClickListener(listener1: OnItemClickListen1){
+    fun setClickListener(listener1: MainCategoryAdapter.OnItemClickListener){
         listener = listener1
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {

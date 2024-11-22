@@ -5,23 +5,29 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.m1ctopt1.recipeapp.adapter.MainCategoryAdapter
+import com.m1ctopt1.recipeapp.adapter.SubCategoryAdapter
 import com.m1ctopt1.recipeapp.entities.Category
+import com.m1ctopt1.recipeapp.entities.CategoryItems
 import com.m1ctopt1.recipeapp.entities.Meal
 import com.m1ctopt1.recipeapp.entities.MealResponse
+import com.m1ctopt1.recipeapp.entities.MealsItems
 import com.m1ctopt1.recipeapp.interfaces.GetDataService
 import com.m1ctopt1.recipeapp.retrofitclient.RetrofitClientInstance
+import com.makeramen.roundedimageview.RoundedImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : BaseActivity() {
 
  var youtubeLink = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +39,7 @@ class DetailActivity : AppCompatActivity() {
         var id= intent.getStringExtra("id")
         getSpecificItem(id!!)
 
-        findViewById<Toolbar>(R.id.imgToolbarBtnBack).setOnClickListener {
+        findViewById<ImageButton>(R.id.imgToolbarBtnBack).setOnClickListener {
             finish()
         }
 
@@ -56,7 +62,7 @@ class DetailActivity : AppCompatActivity() {
                 call: Call<MealResponse>,
                 response: Response<MealResponse>
             ){
-                Glide.with(this@DetailActivity).load(response.body()!!.mealsEntity[0].strMealThumb).into(findViewById(R.id.imgItem))
+                Glide.with(this@DetailActivity).load(response.body()!!.mealsEntity[0].strMealThumb).into(findViewById<RoundedImageView>(R.id.imgItem))
 
                 findViewById<TextView>(R.id.tvCategory).text = response.body()!!.mealsEntity[0].strMeal
 
