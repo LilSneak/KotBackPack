@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun convert(fromUnit: Unit, toUnit: Unit, value: Double): Double {
+   fun convert(fromUnit: Unit, toUnit: Unit, value: Double): Double {
         return if(fromUnit.name=="Celsius" && toUnit.name =="Fahrenheit"){
             value * 9 / 5 + 32
         }
