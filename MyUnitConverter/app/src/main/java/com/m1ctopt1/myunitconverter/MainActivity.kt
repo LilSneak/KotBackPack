@@ -16,7 +16,7 @@ data class Unit(val name: String, val converionFactor: Double){
     }
 }
 class MainActivity : AppCompatActivity() {
-    //Creating varibales for the inputs and options on conversion display
+    //Creating variables for the inputs and options on conversion display
     private lateinit var categorySpinner: Spinner
     private lateinit var unitSpinnerFrom: Spinner
     private lateinit var unitSpinnerTo: Spinner
